@@ -18,7 +18,7 @@ cp /opt/contract-deploy/sovereign-genesis.json /opt/zkevm-contracts/tools/create
 npx hardhat run ./tools/createSovereignGenesis/create-sovereign-genesis.ts --network localhost
 
 # Save the genesis file
-genesis_file=$(ls /opt/zkevm-contracts/tools/createSovereignGenesis/genesis-rollupID* 2>/dev/null | head -n 1)
+genesis_file=$(find /opt/zkevm-contracts/tools/createSovereignGenesis/ -maxdepth 1 -type f -name 'genesis-rollupID*' 2>/dev/null | head -n 1)
 if [[ -f "$genesis_file" ]]; then
     cp "$genesis_file" /opt/zkevm/sovereign-predeployed-genesis.json
     echo "Predeployed Genesis file saved: /opt/zkevm/sovereign-predeployed-genesis.json"
@@ -28,7 +28,7 @@ else
 fi
 
 # Save tool output file
-output_file=$(ls /opt/zkevm-contracts/tools/createSovereignGenesis/output-rollupID* 2>/dev/null | head -n 1)
+output_file=$(find /opt/zkevm-contracts/tools/createSovereignGenesis/ -maxdepth 1 -type f -name 'output-rollupID*' 2>/dev/null | head -n 1)
 if [[ -f "$output_file" ]]; then
     cp "$output_file" /opt/zkevm/create-sovereign-genesis-output.json
     echo "Output saved: /opt/zkevm/create-sovereign-genesis-output.json"
